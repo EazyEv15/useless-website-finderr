@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Useless Website Finder</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+        color: #333;
+        transition: background-color 0.5s, color 0.5s;
+        position: relative;
+      }
+
+      .dark {
+        background-color: #333;
+        color: #fff;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      button.black {
+        background-color: #000;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #result {
+        margin-top: 20px;
+        padding: 11px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      #result p {
+        color: #333;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .button-container {
+        margin-top: 20px;
+      }
+
+      #share-button-container {
+        margin-top: 10px;
+      }
+
+      #theme-button-container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      #share-button-container button.black:hover {
+        background-color: #333;
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 28px;
+        }
+        p {
+          font-size: 18px;
+        }
+        button {
+          padding: 14px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Container for the Change Theme button -->
+    some websites may need a flash emulator
+    <div id="theme-button-container">
+      <button onclick="changeTheme()">Change Theme</button>
+    </div>
+
+    <h1>Useless Website Finder</h1>
+    <p>Click the button below to be redirected to a useless website:</p>
+
+    <!-- Container for the Find Useless Website button -->
+    <div id="find-button-container">
+      <button onclick="redirectUselessWebsite()">Find Useless Website</button>
+    </div>
+    <script>
+      const uselessWebsites = [
+        "http://www.zombo.com/",
+        "http://www.fallingfalling.com/",
+        "http://www.donothingfor2minutes.com/",
+        "http://www.rickrolldb.com/",
+        "http://www.sometimesredsometimesblue.com/",
+        "http://www.bouncingdvdlogo.com/",
+        "http://www.pointerpointer.com/",
+        "http://www.staggeringbeauty.com/",
+        "https://burymewithmymoney.com/",
+        "http://www.trypap.com/",
+        "https://imbenwolf.github.io/sanger.dk/",
+        "http://everydayim.com/",
+        "https://www.koalastothemax.com/",
+        "http://www.cat-bounce.com/",
+        "http://www.longdogechallenge.com/",
+        "https://ffffidget.com/",
+        "https://nyan.cat/",
+        "https://papertoilet.com/",
+        "http://ouaismaisbon.ch/",
+        "https://zoomquilt.org/",
+        "https://screamintothevoid.com/",
+        "http://eelslap.com/",
+        "https://heeeeeeeey.com/",
+        "http://www.republiquedesmangues.fr/",
+        "http://www.randomcolour.com/",
+        "http://www.omglasergunspewpewpew.com/",
+        "http://www.fallingguy.com/",
+        "http://www.rrrgggbbb.com/",
+        "http://www.pleaselike.com/",
+        "http://www.muchbetterthanthis.com/",
+        "http://www.hristu.net/",
+        "http://endless.horse/",
+        "https://chickenonaraft.com/",
+        "http://www.pixelthoughts.co/",
+        "https://chihuahuaspin.com/",
+        "https://www.omfgdogs.com/",
+        "https://www.omfgcats.com/",
+        "https://pixelsfighting.com/",
+        "https://alwaysjudgeabookbyitscover.com/",
+        "https://weirdorconfusing.com/",
+        "http://findtheinvisiblecow.com/",
+        "http://ninjaflex.com/",
+        "http://iloveyoulikeafatladylovesapples.com/",
+        "https://corndog.io/",
+        "https://isitwhite.com/",
+        "http://www.patience-is-a-virtue.org/",
+        "https://www.r33b.net/",
+        "http://potatoortomato.com/",
+        "https://buzzybuzz.biz/",
+        "https://theuselessweb.site/ducksarethebest.com/",
+        "https://web.archive.org/web/20190512120351if_/http://dogs.are.the.most.moe/",
+        "https://web.archive.org/web/20121231200144if_/http://www.haneke.net/",
+        "https://www.bestuselesswebsites.com/originals/bullseye.html",
+        "https://minecraftstal.com/",
+        "https://www.badgerbadgerbadger.com/",
+        "http://eugene.works/gentlebrain/",
+        "http://yeahlemons.com/",
+        "https://www.icantsleep.help/",
+        "https://www.yesnoif.com/",
+        "https://cant-not-tweet-this.com/",
+        "https://www.biglongnow.com/",
+        "https://www.leduchamp.com/",
+        "https://www.electricboogiewoogie.com/",
+        "https://oct82.com/",
+        "https://boringboringboring.com/",
+        "https://loopedforinfinity.com/",
+        "https://greatbignothing.com/",
+        "https://remoji.com/",
+        "https://wutdafuk.com/",
+        "https://nullingthevoid.com/",
+        "https://chrismckenzie.com/",
+        "http://tencents.info/",
+        "https://www.blankwindows.com/",
+        "https://www.crossdivisions.com/",
+        "https://www.onlysuddenly.com/",
+        "https://www.sadforjapan.com/",
+        "https://www.trashloop.com/",
+        "https://thisgrey.com/",
+        "https://www.nearnext.com/",
+        "https://www.taskunrelated.com/",
+        "https://www.lotsofmany.com/",
+        "https://www.eggalone.com/",
+        "https://www.manualsequence.com/",
+        "http://onemillionlols.com/",
+        "https://www.somestill.com/",
+        "https://www.movenowthinklater.com/",
+        "https://theuselessweb.site/plspetdoge/",
+        "https://crouton.net/",
+        "https://www.maninthedark.com/",
+        "https://hmpg.net/",
+        "https://web.archive.org/web/20170606132008if_/http://www.nelson-haha.com/",
+        "https://www.intotime.com/",
+        "https://theuselessweb.site/purple/",
+        "https://thatsthefinger.com/",
+        "http://corndogoncorndog.com/",
+        "https://puginarug.com/",
+        "https://pieisgood.org/",
+        "https://www.openthiswindow.com/",
+        "https://www.pictureofhotdog.com/",
+        "https://theuselessweb.site/salmonofcapistrano/",
+        "http://www.spaceis.cool/",
+        "https://noot.space/",
+        "https://happyhappyhardcore.com/",
+        "https://onesquareminesweeper.com/",
+        "http://doughnutkitten.com/",
+        "https://mondrianandme.com/",
+        "http://web.archive.org/web/20160802070625im_/http://www.baconsizzling.com/",
+        "https://theuselessweb.site/hardcoreprawnlawn/",
+        "https://web.archive.org/web/20210508075030if_/https://www.theworldsworstwebsiteever.com/",
+        "https://popcat.click/",
+        "http://www.thebestdinosaur.com/",
+        "https://floatingqrcode.com/",
+        "https://cursoreffects.com/",
+        "https://smashthewalls.com/",
+        "http://drawing.garden/",
+        "https://rotatingsandwiches.com/",
+        "https://tacospin.com/",
+        "https://drumsound.net/",
+        "https://sebastianguillen.com/",
+        "https://www.gurka.se/",
+        "https://www.astrohamster.com/",
+        "https://www.hectorsalamanca.com/",
+        "https://theuselessweb.site/nooooooooooooooo/",
+        "https://www.d-e-f-i-n-i-t-e-l-y.com/",
+        "https://takeb1nzyto.space/",
+        "http://www.catwig.com/",
+        "https://existentialcrisis.com/",
+        "https://epic.horse/",
+        "https://www.hiyoooo.com/",
+        "https://potatoaroundmyroom.netlify.app/",
+        "https://more.playables.net/",
+        "http://www.isitfridayyet.net/",
+        "https://flappy-2048.com/",
+        "http://www.didthanoskill.me/",
+        "http://www.clicktoremove.com/",
+        "https://www.bestuselesswebsites.com/originals/smile-and-wink.html",
+        "https://web.archive.org/web/20160112004553if_/http://crapo.la/",
+        "https://instantostrich.com/",
+        "https://leekspin.com/",
+        "https://paveldogreat.github.io/WebGL-Fluid-Simulation/",
+        "https://potato.io/",
+        "https://deepblackhole.com/",
+        "http://lacquerlacquer.com/",
+        "https://mrdoob.com/lab/javascript/effects/solitaire/",
+        "https://mrdoob.com/lab/javascript/beachballs/",
+        "https://mrdoob.com/lab/javascript/effects/zoomblur/03/",
+        "http://haveyoueverbeenlonely.com/",
+        "https://mrdoob.com/lab/javascript/spinpainter/",
+        "https://spielzeugz.de/html5/sticky-thing/",
+        "https://mrdoob.com/lab/javascript/waveform/",
+        "https://mrdoob.com/lab/javascript/webgl/voxels_liquid/",
+        "https://mrdoob.com/lab/javascript/checkbox_painter/",
+        "http://www.spielzeugz.de/html5/space-noodles/",
+        "https://theuselessweb.site/willthefuturebeawesome/",
+        "http://www.byronknoll.com/earth.html",
+        "https://web.archive.org/web/20170708141648if_/https://www.sealspin.com/",
+        "https://williamhoza.com/text/?t=Hello",
+        "http://www.randomerror.com/",
+        "https://neal.fun/rocks/",
+        "https://jacksonpollock.org/",
+        "http://scroll-o-meter.club/",
+        "https://web.archive.org/web/20210418160752im_/http://www.ascii-middle-finger.com/",
+        "https://dadlaughbutton.com/",
+        "https://www.maxlaumeister.com/feed-derpy/",
+        "https://airhorner.com/",
+        "https://procatinator.com/",
+        "https://onefishstudio.net/ucg",
+        "https://threejs-backgroundtest.webflow.io/",
+        "https://theuselessweb.site/geodude/",
+        "https://thefo.nz/",
+        "https://beesbeesbeesbees.com/",
+        "https://www.itwillneverbethesame.com/",
+        "https://web.archive.org/web/20090826104256im_/http://giantbatfarts.com/",
+        "https://tunnelsnakes.com/",
+        "https://theuselessweb.site/cuteroulette/", 
+        "https://www.randomgoat.com/",
+        "https://web.archive.org/web/20190103104633im_/http://meowmania.jqln.org/",
+        "https://web.archive.org/web/20190214011119if_/http://ihasabucket.com/",
+        "https://mrdoob.com/projects/chromeexperiments/google-space/",
+        "https://flowpaper.io/",
+        "https://www.startle-the-fish.nl/",
+        "https://mrdoob.com/projects/chromeexperiments/google-gravity/",
+        "https://homonoosphericus.com/",
+        "https://haveyoueverbeenlonely.com/",
+        "https://sketchywebsite.net/",
+        "https://danielpettersson.github.io/boingy/",
+        "https://bongo.cat/",
+        "http://www.masteroftheeclipse.com/",
+        "http://www.slightlyinteresting.com/plasmaglobe/plasma.asp",
+        "https://theuselessweb.site/inceptionbutton/",
+        "https://www.itiswednesdaymydudes.com/",
+        "https://hotdoom.com/",
+        "https://theuselessweb.site/minionstranslator/",
+        "http://web.archive.org/web/20190504041444oe_/http://www.inear.se/visualeyezer/",
+        "https://theuselessweb.site/infinitefrogs/",
+        "https://brokenself.com/",
+        "https://poop.bike/",
+        "https://onandoff.org/",
+        "https://web.archive.org/web/20210425060958if_/http://jellotime.com/",
+        "https://theuselessweb.site/whatdoineed/",
+        "https://cccmmmyyykkk.com/",
+        "http://shapesmania.com/art/shader1",
+        "https://www.popcornpainting.com/",
+        "https://pointl.us/",
+        "https://web.archive.org/web/20190702104559if_/http://pointless-button.com/",
+        "https://1zabbo1.github.io/The-Random-Site/",
+        "https://web.archive.org/web/20060701083240if_/http://www.itisamystery.com/",
+        "https://www.hybridmoment.com/",
+        "https://www.emojiparty.club/",
+        "https://www.misternicehands.com/",
+        "http://whitetrash.nl/",
+        "https://theuselessweb.site/uppertolowercase/",
+        "https://iamawesome.com/",
+        "https://arkadia.xyz/",
+        "https://www.shtuff.com/",
+        "https://po.ta.to/",
+        "https://h1ghf1ve.me/",
+        "http://www.slightlyinteresting.com/lavalamp/lava.asp",
+        "https://cdpn.io/shubniggurath/debug/EmMzpp",
+        "https://web.archive.org/web/20190509020543if_/http://boooooooooooooing.com/",
+        "http://toastybutton.com/",
+        "https://friedchickensimulator.surge.sh/",
+        "https://blank.org/",
+        "https://www.violentpower.com/",
+        "https://tane.us/",
+        "https://hackertyper.com/",
+        "https://isittimeforanap.com/",
+        "https://www.cachemonet.com/",
+        "https://www.shenevertoldherlove.com/",
+        "https://www.doublepressure.com/",
+        "https://binarypiano.com/",
+        "https://paint.toys/",
+        "https://checkboxrace.com/",
+        "https://www.towardsandbeyond.com/",
+        "https://butchersworkshop.com/witr/",
+        "https://theuselessweb.site/puppytummy/",
+        "https://www.colorflip.com/",
+        "https://www.nosquito.biz/",
+        "https://www.aestheticecho.com/",
+        "https://www.goodbyefarewell.com/",
+        "https://www.windows93.net/",
+        "https://dowefeelthebern.com/",
+        "https://asciimation.co.nz/",
+        "http://www.flashbynight.com/drench/",
+        "https://wxs.ca/iso/",
+        "https://openpuppies.com",
+        "https://demos.littleworkshop.fr/infinitown",
+        "https://www.window-swap.com/Window",
+        "https://roxik.com/toy1.html",
+        "https://hotdogcat.com/",
+        "https://hencam.com/",
+        "http://www.asinglepictureofgeorgeclooneyinfrontofthetajmahalandgoogleads.com/",
+        "https://www.liquidnonsense.com/",
+        "https://www.vectorpark.com/levers/",
+        "http://www.mommytimes.net/",
+        "https://www.thedancinglion.com/",
+        "http://www.buttonbanger.net/",
+      ];
+
+      function redirectUselessWebsite() {
+        const randomIndex = Math.floor(Math.random() * uselessWebsites.length);
+        const randomWebsite = uselessWebsites[randomIndex];
+        window.location.href = randomWebsite;
+      }
+
+      function changeTheme() {
+        document.body.classList.toggle("dark");
+      }
+    </script>
+  </body>
+</html>
